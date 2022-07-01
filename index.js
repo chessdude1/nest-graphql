@@ -1,23 +1,28 @@
-import { ApolloServer, gql } from 'apollo-server';
+import { ApolloServer } from 'apollo-server';
 import { mergeTypeDefs, mergeResolvers } from "@graphql-tools/merge";
 import { typeDefsBook } from './typeDefs/index.js'
 import { resolversBook } from './resolvers/index.js'
-import { typeDefsTest } from "./typeDefs/test.js";
-import { resolversTest } from "./resolvers/test.js";
+import { SpaceXAPI } from "./API/spaceX-api.js";
 
 const typeDefs = mergeTypeDefs(
-  [typeDefsBook, typeDefsTest]
+  [typeDefsBook]
 );
 
 const resolvers = mergeResolvers(
-  [resolversBook, resolversTest]
+  [resolversBook]
 );
+
 
 const server = new ApolloServer({
   typeDefs,
   resolvers,
   csrfPrevention: true,
   cache: 'bounded',
+  dataSources: () => {
+    return {
+      spaceX: new SpaceXAPI()
+    }
+  }
 });
 
 server.listen().then(({ url }) => {

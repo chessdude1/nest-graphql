@@ -1,12 +1,13 @@
-import { ApolloServer, gql } from 'apollo-server';
+import { gql } from 'apollo-server';
 
 export const typeDefsBook = gql`
-  type Book {
-    title: String
-    author: String
+  type TODO {
+    userId : String,
+    id: Int,
+    title : String,
+    completed: Boolean
   }
-
   type Query {
-    books: [Book]
+    todos: TODO
   }
 `;
