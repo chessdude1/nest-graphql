@@ -1,15 +1,15 @@
 import { ApolloServer } from 'apollo-server';
 import { mergeTypeDefs, mergeResolvers } from "@graphql-tools/merge";
-import { typeDefsBook } from './typeDefs/index.js'
-import { resolversBook } from './resolvers/index.js'
-import { SpaceXAPI } from "./API/spaceX-api.js";
+import { typeDefsUsers } from './typeDefs/usersTypes.js'
+import { resolversUser } from './resolvers/usersResolver.js'
+import { UsersApi } from "./API/usersapi.js";
 
 const typeDefs = mergeTypeDefs(
-  [typeDefsBook]
+  [typeDefsUsers]
 );
 
 const resolvers = mergeResolvers(
-  [resolversBook]
+  [resolversUser]
 );
 
 
@@ -18,9 +18,14 @@ const server = new ApolloServer({
   resolvers,
   csrfPrevention: true,
   cache: 'bounded',
+  context: ({ req }) => {
+    const token = req.headers.authorization || '';
+
+    return { token };
+  },
   dataSources: () => {
     return {
-      spaceX: new SpaceXAPI()
+      usersApi: new UsersApi()
     }
   }
 });
