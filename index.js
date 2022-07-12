@@ -1,15 +1,15 @@
 import { ApolloServer } from 'apollo-server';
 import { mergeTypeDefs, mergeResolvers } from "@graphql-tools/merge";
-import { typeDefsUsers } from './typeDefs/usersTypes.js'
-import { resolversUser } from './resolvers/usersResolver.js'
-import { UsersApi } from "./API/usersapi.js";
+import { userResolvers } from "./modules/usersModule/users.resolver.js";
+import { UsersModule } from "./modules/usersModule/users.module.js";
+import { usersSchema } from "./modules/usersModule/users.schema.js";
 
 const typeDefs = mergeTypeDefs(
-  [typeDefsUsers]
+  [usersSchema]
 );
 
 const resolvers = mergeResolvers(
-  [resolversUser]
+  [userResolvers]
 );
 
 
@@ -19,13 +19,12 @@ const server = new ApolloServer({
   csrfPrevention: true,
   cache: 'bounded',
   context: ({ req }) => {
-    const token = req.headers.authorization || '';
-
+    const token = req.headers.authorization;
     return { token };
   },
   dataSources: () => {
     return {
-      usersApi: new UsersApi()
+      usersModule: new UsersModule()
     }
   }
 });
