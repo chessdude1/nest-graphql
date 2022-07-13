@@ -1,3 +1,4 @@
+import { albumsResolver } from './modules/albumsModule/albums.resolver';
 import { ApolloServer } from 'apollo-server';
 import { mergeTypeDefs, mergeResolvers } from '@graphql-tools/merge';
 import { userResolvers } from './modules/usersModule/users.resolver';
@@ -9,13 +10,21 @@ import { UsersModule } from './modules/usersModule/users.module';
 import { artistsSchema } from './modules/artistsModule/artists.schema';
 import { artistsResolver } from './modules/artistsModule/artists.resolver';
 import { ArtistsModule } from './modules/artistsModule/artists.module';
+import { AlbumsModule } from './modules/albumsModule/albums.module';
+import { albumsSchema } from './modules/albumsModule/albums.schema';
 
-const typeDefs = mergeTypeDefs([usersSchema, bandsSchema, artistsSchema]);
+const typeDefs = mergeTypeDefs([
+  usersSchema,
+  bandsSchema,
+  artistsSchema,
+  albumsSchema,
+]);
 
 const resolvers = mergeResolvers([
   userResolvers,
   bandsResolvers,
   artistsResolver,
+  albumsResolver,
 ]);
 
 const server = new ApolloServer({
@@ -32,6 +41,7 @@ const server = new ApolloServer({
       usersModule: new UsersModule(),
       bandsModule: new BandsModule(),
       artistsModule: new ArtistsModule(),
+      albumsModule: new AlbumsModule(),
     };
   },
 });
