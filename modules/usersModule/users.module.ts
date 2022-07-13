@@ -1,6 +1,6 @@
+//@ts-nocheck
 import { RESTDataSource } from 'apollo-datasource-rest';
-import 'dotenv/config'
-
+import 'dotenv/config';
 
 export class UsersModule extends RESTDataSource {
   constructor() {
@@ -13,10 +13,10 @@ export class UsersModule extends RESTDataSource {
   }
 
   async login({ email, password }) {
-    return this.post('/login', { email, password })
+    return this.post('/login', { email, password });
   }
 
   async register({ email, password, firstName, lastName }) {
-    return this.post('/register', { email, password, firstName, lastName })
+    return this.post('/register', { email, password, firstName, lastName });
   }
 }
