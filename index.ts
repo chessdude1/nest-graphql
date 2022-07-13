@@ -12,12 +12,16 @@ import { artistsResolver } from './modules/artistsModule/artists.resolver';
 import { ArtistsModule } from './modules/artistsModule/artists.module';
 import { AlbumsModule } from './modules/albumsModule/albums.module';
 import { albumsSchema } from './modules/albumsModule/albums.schema';
+import { trackSchema } from "./modules/tracksModule/tracks.schema";
+import { tracksResolver } from "./modules/tracksModule/tracks.resolver";
+import { TracksModule } from "./modules/tracksModule/tracks.module";
 
 const typeDefs = mergeTypeDefs([
   usersSchema,
   bandsSchema,
   artistsSchema,
   albumsSchema,
+  trackSchema
 ]);
 
 const resolvers = mergeResolvers([
@@ -25,6 +29,7 @@ const resolvers = mergeResolvers([
   bandsResolvers,
   artistsResolver,
   albumsResolver,
+  tracksResolver
 ]);
 
 const server = new ApolloServer({
@@ -42,6 +47,7 @@ const server = new ApolloServer({
       bandsModule: new BandsModule(),
       artistsModule: new ArtistsModule(),
       albumsModule: new AlbumsModule(),
+      tracksModule: new TracksModule()
     };
   },
 });
