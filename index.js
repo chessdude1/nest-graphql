@@ -3,13 +3,16 @@ import { mergeTypeDefs, mergeResolvers } from "@graphql-tools/merge";
 import { userResolvers } from "./modules/usersModule/users.resolver.js";
 import { UsersModule } from "./modules/usersModule/users.module.js";
 import { usersSchema } from "./modules/usersModule/users.schema.js";
+import { bandsSchema } from "./modules/bandsModule/bands.schema.js";
+import { bandsResolvers } from "./modules/bandsModule/bands.resolver.js";
+import { BandsModule } from "./modules/bandsModule/bands.module.js";
 
 const typeDefs = mergeTypeDefs(
-  [usersSchema]
+  [usersSchema, bandsSchema]
 );
 
 const resolvers = mergeResolvers(
-  [userResolvers]
+  [userResolvers, bandsResolvers]
 );
 
 
@@ -24,7 +27,8 @@ const server = new ApolloServer({
   },
   dataSources: () => {
     return {
-      usersModule: new UsersModule()
+      usersModule: new UsersModule(),
+      bandsModule: new BandsModule()
     }
   }
 });
