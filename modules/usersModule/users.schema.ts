@@ -18,7 +18,7 @@ export const usersSchema = gql`
     lastName: String!
     password: String!
     email: String!
-    favouriteArtistIds: [String!]
+    favouriteArtistIds: [String]
   }
 
   type Query {
