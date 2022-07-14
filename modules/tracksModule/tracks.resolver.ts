@@ -1,4 +1,5 @@
 import { IId, IPagination, TDataSourcesResolvers } from "../commonTypes/types";
+import {ITrackData, Track} from './tracks.types'
 
 export const tracksResolver = {
   Query : {

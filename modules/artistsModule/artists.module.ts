@@ -14,7 +14,7 @@ export class ArtistsModule extends RESTDataSource {
     }
   }
 
-  async getAllArtists(limit : number, offset : number) {
+  async getAllArtists(limit =5 , offset =0) {
     const response = await this.get('');
 
     let filteredArtists = response.items;

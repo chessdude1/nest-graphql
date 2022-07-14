@@ -1,4 +1,4 @@
-interface Genre {
+export interface Genre {
   _id: string;
   name: string;
   description: string;
@@ -6,7 +6,7 @@ interface Genre {
   year: string;
 }
 
-interface IGenreInternal {
+export interface IGenreInternal {
   id: string;
   name: string;
   description: string;
@@ -14,6 +14,6 @@ interface IGenreInternal {
   year: string;
 }
 
-interface IGenreData {
+export interface IGenreData {
   data: IGenreInternal
 }

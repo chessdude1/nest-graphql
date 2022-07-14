@@ -14,7 +14,7 @@ export class BandsModule extends RESTDataSource {
     }
   }
 
-  async getAllBands( limit : number, offset : number ) {
+  async getAllBands( limit =5, offset =0  ) {
     const response = await this.get('');
     let filteredBands = response.item;
     if (offset) {

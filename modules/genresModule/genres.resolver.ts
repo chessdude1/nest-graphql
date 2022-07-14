@@ -1,4 +1,5 @@
 import { IId, IPagination, TDataSourcesResolvers } from "../commonTypes/types";
+import { Genre, IGenreData } from "./genres.types";
 
 export const genreResolver = {
   Query : {

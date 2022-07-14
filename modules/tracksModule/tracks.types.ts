@@ -1,4 +1,4 @@
-interface Track {
+export interface Track {
   _id: string;
   title: string;  
   albumId: string;
@@ -9,7 +9,7 @@ interface Track {
   genresIds: string[];
 }
 
-interface ITrackInternal {
+export interface ITrackInternal {
   id: string;
   title: string;  
   albumId: string;
@@ -20,6 +20,6 @@ interface ITrackInternal {
   genresIds: string[];
 }
 
-interface ITrackData {
+export interface ITrackData {
   data: ITrackInternal
 }

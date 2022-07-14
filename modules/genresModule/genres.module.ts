@@ -1,5 +1,6 @@
 import { RequestOptions, RESTDataSource } from 'apollo-datasource-rest';
 import 'dotenv/config';
+import { Genre, IGenreInternal } from "./genres.types";
 
 export class GenresModule extends RESTDataSource {
   constructor() {
@@ -13,7 +14,7 @@ export class GenresModule extends RESTDataSource {
     }
   }
 
-  async getAll(limit : number, offset : number) {
+  async getAll(limit = 5, offset = 0) {
     let response = await this.get('');
 
     let filteredGenres = response.items;

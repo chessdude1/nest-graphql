@@ -15,7 +15,7 @@ export class AlbumsModule extends RESTDataSource {
     }
   }
 
-  async getAllAlbums(limit : number, offset : number ) {
+  async getAllAlbums(limit =5 , offset =0 ) {
     const response = await this.get('');
     let filteredAlbums = response.items;
     if (offset) {

@@ -16,5 +16,8 @@ export const userResolvers = {
       const {data} = args
       return await dataSources.usersModule.register(data);
     },
+    verifyUser: async (_ : undefined, __: undefined, { dataSources } : TDataSourcesResolvers) => {
+      return await dataSources.usersModule.verify();
+    },
   },
 };

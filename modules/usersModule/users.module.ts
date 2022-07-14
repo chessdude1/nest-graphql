@@ -19,4 +19,8 @@ export class UsersModule extends RESTDataSource {
   async register(data : Omit<User, "_id">) {
     return this.post('/register', { ...data });
   }
+
+  async verify() {
+    return await this.post('')
+  }
 }

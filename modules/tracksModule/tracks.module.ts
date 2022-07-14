@@ -1,4 +1,5 @@
 import { RequestOptions, RESTDataSource } from 'apollo-datasource-rest';
+import { ITrackInternal, Track } from "./tracks.types";
 import 'dotenv/config';
 
 export class TracksModule extends RESTDataSource {
@@ -13,7 +14,7 @@ export class TracksModule extends RESTDataSource {
     }
   }
 
-  async getAll(limit : number, offset : number) {
+  async getAll(limit =5 , offset = 0) {
     const response = await this.get('');
 
     let filteredTracks= response.items;
