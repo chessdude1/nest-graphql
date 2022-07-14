@@ -1,7 +1,6 @@
-//@ts-nocheck
-
-import { RESTDataSource } from 'apollo-datasource-rest';
+import { RequestOptions, RESTDataSource } from 'apollo-datasource-rest';
 import 'dotenv/config';
+import { Band, IBandInternal } from "./bands.types";
 
 export class BandsModule extends RESTDataSource {
   constructor() {
@@ -9,13 +8,13 @@ export class BandsModule extends RESTDataSource {
     this.baseURL = process.env.BANDS_BASEAPI_URL;
   }
 
-  willSendRequest(request) {
+  willSendRequest(request : RequestOptions) {
     if (this.context.token) {
       request.headers.set('Authorization', this.context.token);
     }
   }
 
-  async getAllBands({ limit, offset }) {
+  async getAllBands( limit : number, offset : number ) {
     const response = await this.get('');
     let filteredBands = response.item;
     if (offset) {
@@ -28,19 +27,19 @@ export class BandsModule extends RESTDataSource {
     return filteredBands;
   }
 
-  async createOne(members, genresIds, name) {
-    return await this.post('', { members, genresIds, name });
+  async createOne(data : Omit<Band, '_id'>) {
+    return await this.post('', { ...data });
   }
 
-  async getOne(id) {
+  async getOne(id : string) {
     return await this.get(`${id}`);
   }
 
-  async deleteOne(id) {
+  async deleteOne(id : string) {
     return await this.delete(`${id}`);
   }
 
-  async updateOne(id, args) {
+  async updateOne(id : string, args : Omit<Band, '_id'>) {
     return await this.put(`${id}`, { ...args });
   }
 }

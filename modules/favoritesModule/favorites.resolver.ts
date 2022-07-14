@@ -1,17 +1,18 @@
-//@ts-nocheck
+import { TDataSourcesResolvers } from "../commonTypes/types";
+import { IFavoriteInput } from "./favorite.types";
 
 export const favoritesResolver = {
   Query: {
-    getAllFavorites: async (_, __, { dataSources }) => {
+    getAllFavorites: async (_ : undefined, __ : undefined, { dataSources } : TDataSourcesResolvers) => {
       return dataSources.favoritesModule.getAllFavorites();
     },
   },
 
   Mutation: {
-    deleteFavorites: async (_, args, {dataSources}) => {
+    deleteFavorites: async (_ : undefined, args : IFavoriteInput, {dataSources} : TDataSourcesResolvers) => {
       return dataSources.favoritesModule.deleteOne(args)
     },
-    addFavorites: async (_, args, {dataSources}) => {
+    addFavorites: async (_ : undefined, args : IFavoriteInput, {dataSources} : TDataSourcesResolvers) => {
       return dataSources.favoritesModule.addOne(args)
     },
   }

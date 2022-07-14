@@ -1,7 +1,6 @@
-//@ts-nocheck
-
-import { RESTDataSource } from 'apollo-datasource-rest';
+import { RequestOptions, RESTDataSource } from 'apollo-datasource-rest';
 import 'dotenv/config';
+import {  Artist, IArtistInternal } from "./artists.types";
 
 export class ArtistsModule extends RESTDataSource {
   constructor() {
@@ -9,13 +8,13 @@ export class ArtistsModule extends RESTDataSource {
     this.baseURL = process.env.ARTISTS_BASEAPI_URL;
   }
 
-  willSendRequest(request) {
+  willSendRequest(request : RequestOptions) {
     if (this.context.token) {
       request.headers.set('Authorization', this.context.token);
     }
   }
 
-  async getAllArtists({ limit, offset }) {
+  async getAllArtists(limit : number, offset : number) {
     const response = await this.get('');
 
     let filteredArtists = response.items;
@@ -30,19 +29,19 @@ export class ArtistsModule extends RESTDataSource {
     return filteredArtists;
   }
 
-  async deleteOne(id) {
+  async deleteOne(id : string) {
     return await this.delete(`${id}`);
   }
 
-  async getOne(id) {
+  async getOne(id : string) {
     return await this.get(`${id}`);
   }
 
-  async updateOne(id, args) {
+  async updateOne(id : string, args : IArtistInternal) {
     return await this.put(`${id}`, { ...args });
   }
 
-  async createOne(data) {
+  async createOne(data : Omit<Artist, '_id'>) {
     return await this.post('', { ...data });
   }
 }

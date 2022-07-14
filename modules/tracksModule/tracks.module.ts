@@ -1,6 +1,4 @@
-//@ts-nocheck
-
-import { RESTDataSource } from 'apollo-datasource-rest';
+import { RequestOptions, RESTDataSource } from 'apollo-datasource-rest';
 import 'dotenv/config';
 
 export class TracksModule extends RESTDataSource {
@@ -9,13 +7,13 @@ export class TracksModule extends RESTDataSource {
     this.baseURL = process.env.TRACKS_BASEAPI_URL
   }
 
-  willSendRequest(request) {
+  willSendRequest(request : RequestOptions) {
     if (this.context.token) {
       request.headers.set('Authorization', this.context.token);
     }
   }
 
-  async getAll(limit, offset) {
+  async getAll(limit : number, offset : number) {
     const response = await this.get('');
 
     let filteredTracks= response.items;
@@ -30,19 +28,19 @@ export class TracksModule extends RESTDataSource {
     return filteredTracks;
   }
 
-  async deleteOne(id) {
+  async deleteOne(id : string) {
     return await this.delete(`${id}`)
   }
 
-  async updateOne(id, data) {
+  async updateOne(id : string, data : ITrackInternal) {
     return await this.put(`${id}`, {...data})
   }
 
-  async createOne(data) {
+  async createOne(data : Omit<Track, '_id'>) {
     return await this.post('', {...data})
   }
 
-  async getOne(id) {
+  async getOne(id : string) {
     return await this.get(`${id}`)
   }
 

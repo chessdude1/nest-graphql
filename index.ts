@@ -42,6 +42,19 @@ const resolvers = mergeResolvers([
   genreResolver
 ]);
 
+export type TDataSources = typeof dataSources;
+
+
+const dataSources= {
+  genresModule: new GenresModule(),
+  usersModule: new UsersModule(),
+  bandsModule: new BandsModule(),
+  artistsModule: new ArtistsModule(),
+  albumsModule: new AlbumsModule(),
+  tracksModule: new TracksModule(),
+  favoritesModule: new FavoritesModule()
+}
+
 const server = new ApolloServer({
   typeDefs,
   resolvers,
@@ -52,15 +65,7 @@ const server = new ApolloServer({
     return { token };
   },
   dataSources: () => {
-    return {
-      genresModule: new GenresModule(),
-      usersModule: new UsersModule(),
-      bandsModule: new BandsModule(),
-      artistsModule: new ArtistsModule(),
-      albumsModule: new AlbumsModule(),
-      tracksModule: new TracksModule(),
-      favoritesModule: new FavoritesModule()
-    };
+   return {...dataSources}
   },
 });
 

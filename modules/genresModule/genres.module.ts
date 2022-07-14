@@ -1,6 +1,4 @@
-//@ts-nocheck
-
-import { RESTDataSource } from 'apollo-datasource-rest';
+import { RequestOptions, RESTDataSource } from 'apollo-datasource-rest';
 import 'dotenv/config';
 
 export class GenresModule extends RESTDataSource {
@@ -9,13 +7,13 @@ export class GenresModule extends RESTDataSource {
     this.baseURL = process.env.GENRES_BASEAPI_URL;
   }
 
-  willSendRequest(request) {
+  willSendRequest(request : RequestOptions) {
     if (this.context.token) {
       request.headers.set('Authorization', this.context.token);
     }
   }
 
-  async getAll(limit, offset) {
+  async getAll(limit : number, offset : number) {
     let response = await this.get('');
 
     let filteredGenres = response.items;
@@ -29,15 +27,15 @@ export class GenresModule extends RESTDataSource {
     return filteredGenres;
   }
 
-  async getOne(id) {
+  async getOne(id : string) {
     return await this.get(`${id}`)
   }
 
-  async deleteOne(id) {
+  async deleteOne(id : string) {
     return await this.delete(`${id}`)
   }
 
-  async updateOne(id, args) {
+  async updateOne(id : string, args : IGenreInternal) {
 
     const response = await this.put(`${id}`, {...args})
     if (response === '') {
@@ -48,7 +46,7 @@ export class GenresModule extends RESTDataSource {
     }
   }
 
-  async createOne(args) {
+  async createOne(args :  Omit<Genre, '_id'>) {
     return await this.post('', {...args})
   }
 
