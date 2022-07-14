@@ -4,7 +4,7 @@ import { gql } from 'apollo-server'
 
 export const trackSchema = gql`
   type Track {
-      _id: String
+      _id: ID!
       title: String  
       albumId: String
       artistsIds: [String]

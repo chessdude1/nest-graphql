@@ -18,6 +18,9 @@ import { tracksResolver } from "./modules/tracksModule/tracks.resolver";
 import { TracksModule } from "./modules/tracksModule/tracks.module";
 import { FavoritesModule } from "./modules/favoritesModule/favorites.module";
 import { favoritesSchema } from "./modules/favoritesModule/favorites.schema";
+import { genresSchema } from "./modules/genresModule/genres.schema";
+import { genreResolver } from "./modules/genresModule/genres.resolver";
+import { GenresModule } from "./modules/genresModule/genres.module";
 
 const typeDefs = mergeTypeDefs([
   usersSchema,
@@ -25,7 +28,8 @@ const typeDefs = mergeTypeDefs([
   artistsSchema,
   albumsSchema,
   trackSchema,
-  favoritesSchema
+  favoritesSchema,
+  genresSchema
 ]);
 
 const resolvers = mergeResolvers([
@@ -34,7 +38,8 @@ const resolvers = mergeResolvers([
   artistsResolver,
   albumsResolver,
   tracksResolver,
-  favoritesResolver
+  favoritesResolver,
+  genreResolver
 ]);
 
 const server = new ApolloServer({
@@ -48,6 +53,7 @@ const server = new ApolloServer({
   },
   dataSources: () => {
     return {
+      genresModule: new GenresModule(),
       usersModule: new UsersModule(),
       bandsModule: new BandsModule(),
       artistsModule: new ArtistsModule(),

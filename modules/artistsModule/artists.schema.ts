@@ -49,19 +49,19 @@ export const artistsSchema = gql`
   }
 
   interface Genre {
-    _id: String
+    _id: ID!
     name: String
     description: String
     country: String
-    year: String
+    year: Int
   }
 
   input genreInput {
-    _id: String
+    _id: ID!
     name: String
     description: String
     country: String
-    year: String
+    year: Int
   }
 
   input bandInput {

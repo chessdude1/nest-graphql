@@ -1,65 +1,46 @@
 //@ts-nocheck
 
-import { gql } from 'apollo-server';
+import { gql } from 'apollo-server'
 
-export const bandsSchema = gql`
-  type Member {
-    _id: ID
-    firstName: String
-    secondName: String
-    middleName: String
-    country: String
-    instrument: String
-    years: [String]
-  }
-
-  input MemberInput {
-    _id: ID
-    firstName: String
-    secondName: String
-    middleName: String
-    country: String
-    instrument: String
-    years: [String]
-  }
-
-  type Band {
+export const genresSchema = gql`
+  type Genre {
     _id: ID
     name: String
-    origin: String
-    membersId: [Member]
-    website: String
-    genresIds: [String]
+    description: String
+    country: String
+    year:  Int
   }
 
-  input createBandInput {
-    members: [MemberInput]
-    genresIds: [String]
-    name: String!
-  }
-
-  type deleteBandResponse {
-    acknowledged: Boolean
-    deletedCount: Int
-  }
-
-  input updateBandInput {
+  input updateGenreInput{
     id: ID!
     name: String
-    origin: String
-    website: String
-    members: [MemberInput]
-    genresIds: [ID!]
+    description: String
+    country: String
+    year: Int
+  }
+
+  input createGenreInput{
+    name: String
+    description: String
+    country: String
+    year: Int
   }
 
   type Query {
-    getAllBands(limit: Int, offset: Int): [Band]
-    getById(id: ID): Band
+    getAllGenres(limit: Int, offset: Int) : [Genre],
+    getGenreById(id: ID!) : Genre
+  }
+
+  type deleteGenreResponse {
+    acknowledged: Boolean,
+    deletedCount: Int
   }
 
   type Mutation {
-    createBand(data: createBandInput): Band
-    deleteBand(id: ID!): deleteBandResponse
-    updateBand(data: updateBandInput): Band
+    deleteGenreById(id: ID!) : deleteGenreResponse,
+    updateGenreById(data: updateGenreInput) : Genre,
+    createGenre(data : createGenreInput) : Genre
   }
-`;
+
+
+`
