@@ -19,7 +19,6 @@ export const artistsResolver = {
       return dataSources.artistsModule.updateOne(id, data);
     },
     createArtist: async (_, { data }, { dataSources }) => {
-      console.log(data);
       return dataSources.artistsModule.createOne(data);
     },
   },

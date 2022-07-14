@@ -1,3 +1,4 @@
+import { favoritesResolver } from './modules/favoritesModule/favorites.resolver';
 import { albumsResolver } from './modules/albumsModule/albums.resolver';
 import { ApolloServer } from 'apollo-server';
 import { mergeTypeDefs, mergeResolvers } from '@graphql-tools/merge';
@@ -15,13 +16,16 @@ import { albumsSchema } from './modules/albumsModule/albums.schema';
 import { trackSchema } from "./modules/tracksModule/tracks.schema";
 import { tracksResolver } from "./modules/tracksModule/tracks.resolver";
 import { TracksModule } from "./modules/tracksModule/tracks.module";
+import { FavoritesModule } from "./modules/favoritesModule/favorites.module";
+import { favoritesSchema } from "./modules/favoritesModule/favorites.schema";
 
 const typeDefs = mergeTypeDefs([
   usersSchema,
   bandsSchema,
   artistsSchema,
   albumsSchema,
-  trackSchema
+  trackSchema,
+  favoritesSchema
 ]);
 
 const resolvers = mergeResolvers([
@@ -29,7 +33,8 @@ const resolvers = mergeResolvers([
   bandsResolvers,
   artistsResolver,
   albumsResolver,
-  tracksResolver
+  tracksResolver,
+  favoritesResolver
 ]);
 
 const server = new ApolloServer({
@@ -47,7 +52,8 @@ const server = new ApolloServer({
       bandsModule: new BandsModule(),
       artistsModule: new ArtistsModule(),
       albumsModule: new AlbumsModule(),
-      tracksModule: new TracksModule()
+      tracksModule: new TracksModule(),
+      favoritesModule: new FavoritesModule()
     };
   },
 });
