@@ -1,4 +1,5 @@
 import { RequestOptions, RESTDataSource } from 'apollo-datasource-rest';
+import { ApolloError, UserInputError } from "apollo-server";
 import 'dotenv/config';
 import { IFavoriteInput } from "./favorite.types";
 
@@ -15,7 +16,10 @@ export class FavoritesModule extends RESTDataSource {
   }
 
   async getAllFavorites() {
-    return await this.get('')
+    const response = await this.get('')
+    if (response === '') {
+      throw new UserInputError('Favorites empty')
+    }    
   }
 
   async deleteOne(args : IFavoriteInput) {
